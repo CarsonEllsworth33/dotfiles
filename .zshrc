@@ -74,12 +74,16 @@ plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
+# Default working environment
+source $HOME/.venv/bin/activate
+
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
 export PATH="$PATH:$HOME/.local/bin"
 export POETRY_VIRTUALENVS_IN_PROJECT=true
 export WORKON_HOME="$HOME/workspace/git-repos"
+export GPG_TTY="$(tty)"
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
