@@ -49,6 +49,9 @@ scratchpad_minimize disable
 output * bg /home/carsonellsworth/.config/sway/astronaut.jpg fill
 output DP-3 pos -1920 0 res 2560x1440@143.999Hz
 output DP-5 pos -4480 0 res 2560x1440@143.999Hz
+workspace 1 output DP-5
+workspace 2 output DP-3
+workspace 3 output eDP-1
 #
 # Example configuration:
 #
@@ -165,8 +168,9 @@ exec swayidle -w \
     # You can "split" the current object of your focus with
     # $mod+b or $mod+v, for horizontal and vertical splits
     # respectively.
-    bindsym $mod+b splith
-    bindsym $mod+v splitv
+    # I personally find that the vertical and horizontal spits make more sense reversed
+    bindsym $mod+b splitv
+    bindsym $mod+v splith
 
     # Switch the current container between different layout styles
     bindsym $mod+s layout stacking
@@ -230,8 +234,7 @@ bar {
 
     # When the status_command prints a new line to stdout, swaybar updates.
     # The default just shows the current date and time.
-    status_command while date +'%Y-%m-%d %X'; do sleep 1; done
-
+    status_command while $HOME/.venv/bin/python3 $HOME/.config/sway/scripts/status.py; do sleep 1; done
     colors {
         statusline #ffffff
         background #323232
