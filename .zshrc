@@ -84,6 +84,7 @@ export PATH="$PATH:$HOME/.local/bin"
 export POETRY_VIRTUALENVS_IN_PROJECT=true
 export WORKON_HOME="$HOME/workspace/git-repos"
 export GPG_TTY="$(tty)"
+export PICO_SDK_PATH="$HOME/workspace/playground/pico/pico-sdk"
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8

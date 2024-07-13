@@ -1,11 +1,17 @@
 (in-package :lem-user)
 
+(setf lem-core::*default-prompt-gravity* :bottom-display)
+(setf lem/prompt-window::*prompt-completion-window-gravity* :horizontally-above-window)
+(setf lem/prompt-window::*fill-width* t)
+
 ;; Start vi-mode
 (lem-vi-mode:vi-mode)
+(lem-lisp-mode:toggle-paren-coloring)
 
 ;; vi-mode Keybindings
-(setf (variable-value 'lem-vi-mode:leader-key) "Space")
+(setf (variable-value 'lem-vi-mode:leader-key :global) "Space")
 (define-key lem-vi-mode:*normal-keymap* "Leader Space" 'execute-command)
+
 
 ;;(defvar *keymap*
 ;;  (make-keymap :name '*keymap*)
@@ -19,11 +25,12 @@
   "Keymap for commands related to window manipulation.")
 
 (define-key lem-vi-mode:*normal-keymap* "Leader w" *window-keymap*)
+;; (undefined-key lem-vi-mode:*normal-keymap* "Space")
 (define-keys *window-keymap* 
   ("/" 'split-active-window-vertically)
   ("|" 'split-active-window-horizontally)
   ("d" 'delete-active-window)
-  ("Tab" 'switch-to-last-focused-window))
+  ("Tab" 'next-window))
 
 ;; vi-mode buffer keybindings
 (defvar *buffer-keymap*
