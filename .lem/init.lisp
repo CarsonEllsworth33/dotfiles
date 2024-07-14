@@ -41,7 +41,7 @@
 (define-keys *buffer-keymap* 
   ("b" 'select-buffer)
   ("r" 'rename-buffer)
-  ("k" 'delete-buffer)
+  ("k" 'kill-buffer)
   ("D" 'erase-buffer)
   ("p" 'previous-buffer)
   ("n" 'next-buffer))
@@ -57,3 +57,27 @@
   ("r" 'rename-file)
   ("D" 'delete-file)
   ("i" 'insert-file))
+
+;; vi-mode movement keybindings
+(defvar *movement-keymap*
+  (make-keymap :name '*movement*)
+  "Keymap for commands related to cursor movement manipulation.")
+
+(define-key lem-vi-mode:*normal-keymap* "Leader m" *window-keymap*)
+;; (undefined-key lem-vi-mode:*normal-keymap* "Space")
+(define-keys *window-keymap* 
+  ("j" 'forward-paragraph)
+  ("k" 'backward-paragraph)
+  ("J" 'next-page)
+  ("K" 'previous-page))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; LSP configuration
+(lem-lsp-mode/lsp-mode::define-language-spec
+    (py-spec lem-python-mode:python-mode)
+  :language-id "python"
+  :root-uri-patterns '("pyproject.toml" "setup.py")
+  :command '("pylsp")
+  :readme-url "https://github.com/python-lsp/python-lsp-server"
+  :connection-mode :stdio)

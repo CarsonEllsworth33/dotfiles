@@ -110,3 +110,4 @@ export PICO_SDK_PATH="$HOME/workspace/playground/pico/pico-sdk"
 alias ssh='TERM="xterm-256color" ssh'
 alias artemis-protos-builder="docker run --rm -it --volume=$WORKON_HOME/artemis-protos:/opt/build_space/artemis-protos --name artemis-protos-builder artemis-proto-builder"
 alias config="/usr/bin/git --git-dir=$HOME/dotfiles/.git/ --work-tree=$HOME"
+alias ros2="docker run --rm -it --volume=/home/dunderscore/workspace/containers/ros2-jazzy/workspace:/opt/workspace ros2:jazzy bash"
