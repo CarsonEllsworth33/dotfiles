@@ -8,6 +8,9 @@
 (lem-vi-mode:vi-mode)
 (lem-lisp-mode:toggle-paren-coloring)
 
+;; Start with line numbers
+(lem/line-numbers:toggle-line-numbers 1)
+
 ;; vi-mode Keybindings
 (setf (variable-value 'lem-vi-mode:leader-key :global) "Space")
 (define-key lem-vi-mode:*normal-keymap* "Leader Space" 'execute-command)
@@ -70,6 +73,16 @@
   ("k" 'backward-paragraph)
   ("J" 'next-page)
   ("K" 'previous-page))
+
+(defvar *search-keymap*
+  (make-keymap :name '*search*)
+  "Keymap for commands related to buffer searches.")
+
+(define-key lem-vi-mode:*normal-keymap* "Leader s" *search-keymap*)
+;; (undefined-key lem-vi-mode:*normal-keymap* "Space")
+(define-keys *search-keymap* 
+  ("g" 'lem/grep:grep))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
