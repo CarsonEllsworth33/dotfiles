@@ -94,3 +94,8 @@
   :command '("pylsp")
   :readme-url "https://github.com/python-lsp/python-lsp-server"
   :connection-mode :stdio)
+
+;; User Defined Commands
+(define-command open-init-file () ()
+  (find-file
+   (merge-pathnames "init.lisp" (lem-home))))
