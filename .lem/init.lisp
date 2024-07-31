@@ -1,26 +1,39 @@
 (in-package :lem-user)
+(ql:quickload "lem/legit")
 
 (setf lem-core::*default-prompt-gravity* :bottom-display)
 (setf lem/prompt-window::*prompt-completion-window-gravity* :horizontally-above-window)
 (setf lem/prompt-window::*fill-width* t)
 
-;; Start vi-mode
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; User Defined Commands
+(define-command open-init-file () ()
+  (find-file
+   (merge-pathnames "init.lisp" (lem-home))))
+
+(define-command dunder-delete-to-beginning-of-line () ()
+  (progn 
+    (mark-set)
+    (move-to-beginning-of-line)
+    (let*((dunder-point (current-point))
+          (start (cursor-region-beginning dunder-point))
+          (end (cursor-region-end dunder-point)))
+      (delete-character start (count-characters start end)))));; Start vi-mode
 (lem-vi-mode:vi-mode)
 (lem-lisp-mode:toggle-paren-coloring)
 
 ;; Start with line numbers
 (lem/line-numbers:toggle-line-numbers 1)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; vi-mode Keybindings
 (setf (variable-value 'lem-vi-mode:leader-key :global) "Space")
 (define-key lem-vi-mode:*normal-keymap* "Leader Space" 'execute-command)
 
-
-;;(defvar *keymap*
-;;  (make-keymap :name '*keymap*)
-;;  "Toplevel keymap for all of my user commands.")
-
-;;(define-key *global-keymap* "Space" *keymaps*)
 
 ;; vi-mode window keybindings
 (defvar *window-keymap*
@@ -34,6 +47,7 @@
   ("|" 'split-active-window-horizontally)
   ("d" 'delete-active-window)
   ("Tab" 'next-window))
+
 
 ;; vi-mode buffer keybindings
 (defvar *buffer-keymap*
@@ -49,6 +63,7 @@
   ("p" 'previous-buffer)
   ("n" 'next-buffer))
 
+
 ;; vi-mode file keybindings
 (defvar *file-keymap*
   (make-keymap :name '*file*)
@@ -60,6 +75,7 @@
   ("r" 'rename-file)
   ("D" 'delete-file)
   ("i" 'insert-file))
+
 
 ;; vi-mode movement keybindings
 (defvar *movement-keymap*
@@ -74,6 +90,8 @@
   ("J" 'next-page)
   ("K" 'previous-page))
 
+
+;; buffer search keybindings
 (defvar *search-keymap*
   (make-keymap :name '*search*)
   "Keymap for commands related to buffer searches.")
@@ -83,6 +101,16 @@
 (define-keys *search-keymap* 
   ("g" 'lem/grep:grep))
 
+
+;; Quality of life keybindings for vi insert mode
+(define-keys lem-vi-mode:*insert-keymap*
+  ("Shift-Backspace" 'backward-delete-word)
+  ("Shift-Tab" 'dunder-delete-to-beginning-of-line))
+
+;; Quality of life keybindings for vi normal mode
+(define-keys lem-vi-mode:*normal-keymap*
+  ("Shift-Backspace" 'previous-word)
+  ("Shift-Tab" 'dunder-delete-to-beginning-of-line))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -94,8 +122,3 @@
   :command '("pylsp")
   :readme-url "https://github.com/python-lsp/python-lsp-server"
   :connection-mode :stdio)
-
-;; User Defined Commands
-(define-command open-init-file () ()
-  (find-file
-   (merge-pathnames "init.lisp" (lem-home))))
