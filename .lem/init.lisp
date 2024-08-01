@@ -109,8 +109,12 @@
 
 ;; Quality of life keybindings for vi normal mode
 (define-keys lem-vi-mode:*normal-keymap*
-  ("Shift-Backspace" 'previous-word)
-  ("Shift-Tab" 'dunder-delete-to-beginning-of-line))
+  ("Shift-Backspace" 'backward-delete-word)
+  ("Shift-Tab" 'dunder-delete-to-beginning-of-line)
+  ("J" 'forward-paragraph)
+  ("K" 'backward-paragraph)
+  ("H" 'previous-word)
+  ("L" 'forward-word))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
