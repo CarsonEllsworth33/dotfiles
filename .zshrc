@@ -80,11 +80,13 @@ source $HOME/.venv/bin/activate
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
-export PATH="$PATH:$HOME/.local/bin"
+export PATH="$PATH:$HOME/.local/bin:/usr/local/lib"
 export POETRY_VIRTUALENVS_IN_PROJECT=true
 export WORKON_HOME="$HOME/workspace/git-repos"
 export GPG_TTY="$(tty)"
-export PICO_SDK_PATH="$HOME/workspace/playground/pico/pico-sdk"
+export PICO_SDK_PATH="$HOME/workspace/git-repos/pico-sdk"
+export PYTHONPATH="$HOME/.venv/lib/python3.12/site-packages:$PYTHONPATH"
+export LD_LIBRARY_PATH="$HOME/workspace/.built-libs:$LD_LIBRARY_PATH"
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -108,6 +110,9 @@ export PICO_SDK_PATH="$HOME/workspace/playground/pico/pico-sdk"
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias ssh='TERM="xterm-256color" ssh'
-alias artemis-protos-builder="docker run --rm -it --volume=$WORKON_HOME/artemis-protos:/opt/build_space/artemis-protos --name artemis-protos-builder artemis-proto-builder"
 alias config="/usr/bin/git --git-dir=$HOME/dotfiles/.git/ --work-tree=$HOME"
-alias ros2="docker run --rm -it --volume=/home/dunderscore/workspace/containers/ros2-jazzy/workspace:/opt/workspace ros2:jazzy bash"
+alias ros2playground="docker run --rm -it --volume=$WORKON_HOME:/opt/artemis/ros2/src registry.t3delta.org/kobol/configuration-management/ros2-runtime:latest bash"
+alias romulus="cd $WORKON_HOME/romulus/ && ./container.sh run"
+alias cl-cookbook="docker run -p 4000:4000 -v $WORKON_HOME/cl-cookbook:/cl-cookbook cl-cookbook"
+source ~/.work_aliases.sh
+

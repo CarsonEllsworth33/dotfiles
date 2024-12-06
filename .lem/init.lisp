@@ -1,5 +1,4 @@
 (in-package :lem-user)
-(ql:quickload "lem/legit")
 
 (setf lem-core::*default-prompt-gravity* :bottom-display)
 (setf lem/prompt-window::*prompt-completion-window-gravity* :horizontally-above-window)
@@ -20,7 +19,9 @@
     (let*((dunder-point (current-point))
           (start (cursor-region-beginning dunder-point))
           (end (cursor-region-end dunder-point)))
-      (delete-character start (count-characters start end)))));; Start vi-mode
+      (delete-character start (count-characters start end)))))
+
+;; Enable Vi-mode & Paren Coloring
 (lem-vi-mode:vi-mode)
 (lem-lisp-mode:toggle-paren-coloring)
 
@@ -82,9 +83,9 @@
   (make-keymap :name '*movement*)
   "Keymap for commands related to cursor movement manipulation.")
 
-(define-key lem-vi-mode:*normal-keymap* "Leader m" *window-keymap*)
+(define-key lem-vi-mode:*normal-keymap* "Leader m" *movement-keymap*)
 ;; (undefined-key lem-vi-mode:*normal-keymap* "Space")
-(define-keys *window-keymap* 
+(define-keys *movement-keymap* 
   ("j" 'forward-paragraph)
   ("k" 'backward-paragraph)
   ("J" 'next-page)
@@ -104,7 +105,7 @@
 
 ;; Quality of life keybindings for vi insert mode
 (define-keys lem-vi-mode:*insert-keymap*
-  ("Shift-Backspace" 'backward-delete-word)
+  ("Shift-Backspace" 'lem-vi-mode/commands:vi-delete-previous-char)
   ("Shift-Tab" 'dunder-delete-to-beginning-of-line))
 
 ;; Quality of life keybindings for vi normal mode
@@ -115,6 +116,9 @@
   ("K" 'backward-paragraph)
   ("H" 'previous-word)
   ("L" 'forward-word))
+
+;; Legit Key modifications to work with Vi and my custom bindings
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
