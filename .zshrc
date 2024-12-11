@@ -41,7 +41,7 @@ ZSH_THEME="robbyrussell"
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-ENABLE_CORRECTION="true"
+#ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 # You can also set it to another string to have that shown instead of the default red dots.
@@ -75,19 +75,24 @@ plugins=(git)
 source $ZSH/oh-my-zsh.sh
 
 # Default working environment
-source $HOME/.venv/bin/activate
+#source $HOME/.venv/bin/activate
 
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
-export PATH="$PATH:$HOME/.local/bin:/usr/local/lib"
-export POETRY_VIRTUALENVS_IN_PROJECT=true
-export WORKON_HOME="$HOME/workspace/git-repos"
 export GPG_TTY="$(tty)"
+export DUNDER_WORKDIR="$HOME/workspaces"
+export DUNDER_GITDIR="$DUNDER_WORKDIR/git-repos"
+export POETRY_VIRTUALENVS_IN_PROJECT=true
 export PICO_SDK_PATH="$HOME/workspace/git-repos/pico-sdk"
 export PYTHONPATH="$HOME/.venv/lib/python3.12/site-packages:$PYTHONPATH"
-export LD_LIBRARY_PATH="$HOME/workspace/.built-libs:$LD_LIBRARY_PATH"
+export PICO_SDK_PATH="$DUNDER_GITDIR/pico-sdk"
+export QT_QPA_PLATFORM=xcb
 
+export PATH="$DUNDER_GITDIR/lem:$PATH"
+export PATH="$HOME/.qlot/bin:$PATH"
+export PATH="$PATH:$HOME/.local/bin:/usr/local/lib"
+    
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
@@ -110,9 +115,26 @@ export LD_LIBRARY_PATH="$HOME/workspace/.built-libs:$LD_LIBRARY_PATH"
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias ssh='TERM="xterm-256color" ssh'
-alias config="/usr/bin/git --git-dir=$HOME/dotfiles/.git/ --work-tree=$HOME"
-alias ros2playground="docker run --rm -it --volume=$WORKON_HOME:/opt/artemis/ros2/src registry.t3delta.org/kobol/configuration-management/ros2-runtime:latest bash"
-alias romulus="cd $WORKON_HOME/romulus/ && ./container.sh run"
-alias cl-cookbook="docker run -p 4000:4000 -v $WORKON_HOME/cl-cookbook:/cl-cookbook cl-cookbook"
-source ~/.work_aliases.sh
+alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+################## add to work_aliases.sh
+# alias romulus="cd $DUNDER_GITDIR/romulus/ && ./container.sh run" 
+# alias ros2playground="docker run --rm -it --volume=$DUNDER_GITDIR:/opt/artemis/ros2/src registry.t3delta.org/kobol/configuration-management/ros2-runtime:latest bash"
+##################
+alias cl-cookbook="docker run -p 4000:4000 -v $DUNDER_GITDIR/cl-cookbook:/cl-cookbook cl-cookbook"
 
+work_init () {
+    source ~/.work_aliases.sh;
+}
+
+home_init () {
+    echo "DOING HOME TASKS";
+}
+
+
+case $HOST in
+    ## All personal specific items go here
+    (voyager) home_init;;
+    ## All work specific items go here
+    (horizon) work_init;;
+    (*) echo "ERROR UNRECOGNIZED HOSTNAME";;
+esac
