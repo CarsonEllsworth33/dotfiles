@@ -115,7 +115,6 @@ export PATH="$PATH:$HOME/.local/bin:/usr/local/lib"
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias ssh='kitten ssh'
-alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 ################## add to work_aliases.sh
 # alias romulus="cd $DUNDER_GITDIR/romulus/ && ./container.sh run" 
 # alias ros2playground="docker run --rm -it --volume=$DUNDER_GITDIR:/opt/artemis/ros2/src registry.t3delta.org/kobol/configuration-management/ros2-runtime:latest bash"
