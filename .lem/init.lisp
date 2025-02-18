@@ -35,7 +35,12 @@
 (setf (variable-value 'lem-vi-mode:leader-key :global) "Space")
 (define-key lem-vi-mode:*normal-keymap* "Leader Space" 'execute-command)
 
-
+(define-key lem-vi-mode:*insert-keymap* "(" 'lem-paredit-mode:paredit-insert-paren)
+(define-key lem-vi-mode:*insert-keymap* ")" 'lem-paredit-mode:paredit-close-parenthesis)
+(define-key lem-vi-mode:*insert-keymap* "[" 'lem-paredit-mode:paredit-insert-bracket)
+(define-key lem-vi-mode:*insert-keymap* "]" 'lem-paredit-mode:paredit-close-bracket)
+(define-key lem-vi-mode:*insert-keymap* "{" 'lem-paredit-mode:paredit-insert-brace)
+(define-key lem-vi-mode:*insert-keymap* "}" 'lem-paredit-mode:paredit-close-brace)
 ;; vi-mode window keybindings
 (defvar *window-keymap*
   (make-keymap :name '*window*)
@@ -129,4 +134,11 @@
   :root-uri-patterns '("pyproject.toml" "setup.py")
   :command '("pylsp")
   :readme-url "https://github.com/python-lsp/python-lsp-server"
+  :connection-mode :stdio)
+
+(lem-lsp-mode/lsp-mode::define-language-spec
+    (rust-spec lem-rust-mode:rust-mode)
+  :language-id "rust"
+  :root-uri-patterns '("Cargo.toml")
+  :command '("/home/dunderscore/.cargo/bin/rust-analyzer" "--stdio")
   :connection-mode :stdio)

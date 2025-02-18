@@ -114,7 +114,7 @@ export PATH="$PATH:$HOME/.local/bin:/usr/local/lib"
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias ssh='TERM="xterm-256color" ssh'
+alias ssh='kitten ssh'
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 ################## add to work_aliases.sh
 # alias romulus="cd $DUNDER_GITDIR/romulus/ && ./container.sh run" 
@@ -123,6 +123,7 @@ alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 alias cl-cookbook="docker run -p 4000:4000 -v $DUNDER_GITDIR/cl-cookbook:/cl-cookbook cl-cookbook"
 
 work_init () {
+    echo "DOING WORK TASKS";
     source ~/.work_aliases.sh;
 }
 
