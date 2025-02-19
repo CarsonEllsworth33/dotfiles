@@ -1,0 +1,3 @@
+[submodule ".themes/Juno"]
+	path = .themes/Juno
+	url = https://github.com/EliverLara/Juno

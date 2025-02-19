@@ -13,3 +13,4 @@ ensure_link () {
 ensure_link .zshrc        # install symlink to .zshrc file
 ensure_link .lem          # install symlink to lem directory
 ensure_link .config/hypr  # install symlink to hypr directory
+ensure_link .themes       # install symlink to themes directory
