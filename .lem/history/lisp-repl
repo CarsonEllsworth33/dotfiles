@@ -1,3 +1,0 @@
-
-("(add-record (make-cd \"ben shapiro\" \"facts\" 7 nil))" "(add-record (make-cd \"bs\" \"facts\" 7 nil))" "(add-record (make-cd \"cardie-sumthin\" \"wap\" 30 nil))
-" "(read)" "" "" "" "" "" "*db*" "") 
