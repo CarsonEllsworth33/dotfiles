@@ -120,6 +120,9 @@ alias ssh='kitten ssh'
 # alias ros2playground="docker run --rm -it --volume=$DUNDER_GITDIR:/opt/artemis/ros2/src registry.t3delta.org/kobol/configuration-management/ros2-runtime:latest bash"
 ##################
 alias cl-cookbook="docker run -p 4000:4000 -v $DUNDER_GITDIR/cl-cookbook:/cl-cookbook cl-cookbook"
+alias screenshot_region='grim -g "$(slurp)"'
+alias screenshot_screen="grim -o" # Need monitor name as parameter ex. DP-1
+alias screenshot_to_clipboard="grim - | wlcopy"
 
 work_init () {
     echo "DOING WORK TASKS";

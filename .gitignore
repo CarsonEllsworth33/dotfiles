@@ -2,3 +2,4 @@
 **/local.conf
 .oh-my-zsh
 .lem/history
+.lem/logs
