@@ -3,3 +3,4 @@
 .oh-my-zsh
 .lem/history
 .lem/logs
+.lem/config.lisp

@@ -1,3 +1,0 @@
-
-(:COLOR-THEME "synth-midnight-dark" :ISEARCH-PREVIOUS-STRING "" :SDL2-FONT-SIZE
- 19)
