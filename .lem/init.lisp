@@ -35,12 +35,6 @@
 (setf (variable-value 'lem-vi-mode:leader-key :global) "Space")
 (define-key lem-vi-mode:*normal-keymap* "Leader Space" 'execute-command)
 
-(define-key lem-vi-mode:*insert-keymap* "(" 'lem-paredit-mode:paredit-insert-paren)
-(define-key lem-vi-mode:*insert-keymap* ")" 'lem-paredit-mode:paredit-close-parenthesis)
-(define-key lem-vi-mode:*insert-keymap* "[" 'lem-paredit-mode:paredit-insert-bracket)
-(define-key lem-vi-mode:*insert-keymap* "]" 'lem-paredit-mode:paredit-close-bracket)
-(define-key lem-vi-mode:*insert-keymap* "{" 'lem-paredit-mode:paredit-insert-brace)
-(define-key lem-vi-mode:*insert-keymap* "}" 'lem-paredit-mode:paredit-close-brace)
 ;; vi-mode window keybindings
 (defvar *window-keymap*
   (make-keymap :name '*window*)
@@ -96,13 +90,56 @@
   ("J" 'next-page)
   ("K" 'previous-page))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;; Init block courtesy of sakurawald --- https://github.com/sakurawald/.dotfiles/blob/master/lem/.lem/init.lisp
+;; Tab keybindings
+(define-key lem-vi-mode:*normal-keymap* "Leader t c" 'lem/frame-multiplexer::frame-multiplexer-create-with-previous-buffer) 
+(define-key lem-vi-mode:*normal-keymap* "Leader t d" 'lem/frame-multiplexer::frame-multiplexer-delete)
+
+(define-key lem-vi-mode:*normal-keymap* "Leader 0" 'lem/frame-multiplexer::frame-multiplexer-switch-0)
+(define-key lem-vi-mode:*normal-keymap* "Leader 1" 'lem/frame-multiplexer::frame-multiplexer-switch-1)
+(define-key lem-vi-mode:*normal-keymap* "Leader 2" 'lem/frame-multiplexer::frame-multiplexer-switch-2)
+(define-key lem-vi-mode:*normal-keymap* "Leader 3" 'lem/frame-multiplexer::frame-multiplexer-switch-3)
+(define-key lem-vi-mode:*normal-keymap* "Leader 4" 'lem/frame-multiplexer::frame-multiplexer-switch-4)
+(define-key lem-vi-mode:*normal-keymap* "Leader 5" 'lem/frame-multiplexer::frame-multiplexer-switch-5)
+(define-key lem-vi-mode:*normal-keymap* "Leader 6" 'lem/frame-multiplexer::frame-multiplexer-switch-6)
+(define-key lem-vi-mode:*normal-keymap* "Leader 7" 'lem/frame-multiplexer::frame-multiplexer-switch-7)
+(define-key lem-vi-mode:*normal-keymap* "Leader 8" 'lem/frame-multiplexer::frame-multiplexer-switch-8)
+(define-key lem-vi-mode:*normal-keymap* "Leader 9" 'lem/frame-multiplexer::frame-multiplexer-switch-9)
+
+
+;; automatically load paredit when opening a lisp file
+(defun pared-hook ()
+  (lem-paredit-mode:paredit-mode t))
+(add-hook lem-lisp-mode:*lisp-mode-hook* #'pared-hook)
+
+;;;; -- s-exp --
+;; TIP: Use `)` to move over the list.
+;; TIP: Use `g m` to move to the matching item.
+(define-key lem-vi-mode:*normal-keymap* "Leader s m" 'mark-sexp)
+(define-key lem-vi-mode:*normal-keymap* "Leader s k" 'lem-paredit-mode:paredit-kill)
+(define-key lem-vi-mode:*normal-keymap* "Leader s w" 'lem-paredit-mode:paredit-wrap-round)
+(define-key lem-vi-mode:*normal-keymap* "Leader s W" 'lem-paredit-mode:paredit-splice)
+(define-key lem-vi-mode:*normal-keymap* "Leader s b" 'lem-paredit-mode:paredit-barf)
+(define-key lem-vi-mode:*normal-keymap* "Leader s s" 'lem-paredit-mode:paredit-slurp)
+(define-key lem-vi-mode:*normal-keymap* "Leader s t" 'transpose-sexps)
+(define-key lem-vi-mode:*normal-keymap* "Leader s r" 'lem-paredit-mode:paredit-raise)
+
+(define-key lem-vi-mode:*normal-keymap* "C-h" 'window-move-left)
+(define-key lem-vi-mode:*normal-keymap* "C-j" 'window-move-down)
+(define-key lem-vi-mode:*normal-keymap* "C-k" 'window-move-up)
+(define-key lem-vi-mode:*normal-keymap* "C-l" 'window-move-right)
+
+;; End of Block
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 
 ;; buffer search keybindings
 (defvar *search-keymap*
   (make-keymap :name '*search*)
   "Keymap for commands related to buffer searches.")
 
-(define-key lem-vi-mode:*normal-keymap* "Leader s" *search-keymap*)
+(define-key lem-vi-mode:*normal-keymap* "Leader x" *search-keymap*)
 ;; (undefined-key lem-vi-mode:*normal-keymap* "Space")
 (define-keys *search-keymap* 
   ("g" 'lem/grep:grep)
