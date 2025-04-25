@@ -143,7 +143,8 @@
 ;; (undefined-key lem-vi-mode:*normal-keymap* "Space")
 (define-keys *search-keymap* 
   ("g" 'lem/grep:grep)
-  ("f" 'lem/language-mode:find-definitions)) 
+  ("f" 'lem/language-mode:find-definitions)
+  ("r" 'lem/language-mode:find-references))
 
 
 ;; Quality of life keybindings for vi insert mode

@@ -86,6 +86,7 @@ export DUNDER_GITDIR="$DUNDER_WORKDIR/git-repos"
 export POETRY_VIRTUALENVS_IN_PROJECT=true
 export PICO_SDK_PATH="$HOME/workspace/git-repos/pico-sdk"
 export PYTHONPATH="$HOME/.venv/lib/python3.12/site-packages:$PYTHONPATH"
+export PYTHONPATH="$DUNDER_GITDIR:$PYTHONPATH"
 export PICO_SDK_PATH="$DUNDER_GITDIR/pico-sdk"
 export QT_QPA_PLATFORM=xcb
 
