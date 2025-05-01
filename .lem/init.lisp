@@ -167,11 +167,22 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; LSP configuration
+
+#|
+Due to arch not allowing pip to be installed at the system level
+	a virtual environment needs to be created. With the virtual env
+	you can install pylsp via the pip install "python-lsp-server[all]"
+	this install pylsp with all additional lsp functionality including
+	error checking, formatting, style checking etc.
+	Check the readme for all options.
+Now you need to actually point to where the lsp program was installed
+	this is located in the bin folder of the virtual environment.
+|#
 (lem-lsp-mode/lsp-mode::define-language-spec
     (py-spec lem-python-mode:python-mode)
   :language-id "python"
-  :root-uri-patterns '("pyproject.toml" "setup.py")
-  :command '("pylsp")
+  :root-uri-patterns '("pyproject.toml" "setup.py" "__init__.py")
+  :command '("/home/dunderscore/workspaces/git-repos/.venv/bin/pylsp")
   :readme-url "https://github.com/python-lsp/python-lsp-server"
   :connection-mode :stdio)
 

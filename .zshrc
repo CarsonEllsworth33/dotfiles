@@ -125,6 +125,9 @@ alias cl-cookbook="docker run -p 4000:4000 -v $DUNDER_GITDIR/cl-cookbook:/cl-coo
 work_init () {
     echo "DOING WORK TASKS";
     source ~/.work_aliases.sh;
+    if test -d "$DUNDER_GITDIR/.venv"; then
+    	source "$DUNDER_GITDIR/.venv/bin/activate"
+    fi
 }
 
 home_init () {
