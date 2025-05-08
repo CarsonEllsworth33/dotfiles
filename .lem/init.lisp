@@ -146,6 +146,17 @@
   ("f" 'lem/language-mode:find-definitions)
   ("r" 'lem/language-mode:find-references))
 
+;; lsp keybindings
+(defvar *lsp-keymap*
+  (make-keymap :name '*lsp*)
+  "Keymap for commands related to the current lsp being used.")
+
+(define-key lem-vi-mode:*normal-keymap* "Leader l" *lsp-keymap*)
+;; (undefined-key lem-vi-mode:*normal-keymap* "Space")
+(define-keys *lsp-keymap* 
+  ("d" 'lem-lsp-mode/lsp-mode::lsp-document-diagnostics))
+
+;;(add-hook lem/buffer:before-save-hook 'lem-lsp-mode/lsp-mode::lsp-document-format)
 
 ;; Quality of life keybindings for vi insert mode
 (define-keys lem-vi-mode:*insert-keymap*
@@ -178,13 +189,15 @@ Due to arch not allowing pip to be installed at the system level
 Now you need to actually point to where the lsp program was installed
 	this is located in the bin folder of the virtual environment.
 |#
+;; Now I need to add a hook to start pylsp with tcp on initial major mode start
 (lem-lsp-mode/lsp-mode::define-language-spec
     (py-spec lem-python-mode:python-mode)
   :language-id "python"
   :root-uri-patterns '("pyproject.toml" "setup.py" "__init__.py")
   :command '("/home/dunderscore/workspaces/git-repos/.venv/bin/pylsp")
   :readme-url "https://github.com/python-lsp/python-lsp-server"
-  :connection-mode :stdio)
+  :connection-mode :tcp
+  :port 2087)
 
 (lem-lsp-mode/lsp-mode::define-language-spec
     (rust-spec lem-rust-mode:rust-mode)
