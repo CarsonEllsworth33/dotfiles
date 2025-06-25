@@ -163,6 +163,9 @@
   ("Shift-Backspace" 'lem-vi-mode/commands:vi-delete-previous-char)
   ("Shift-Tab" 'dunder-delete-to-beginning-of-line))
 
+(define-keys lem-vi-mode:*visual-keymap*
+  ("C" 'lem/language-mode::comment-or-uncomment-region))
+
 ;; Quality of life keybindings for vi normal mode
 (define-keys lem-vi-mode:*normal-keymap*
   ("Shift-Backspace" 'backward-delete-word)
@@ -183,18 +186,19 @@
 Due to arch not allowing pip to be installed at the system level
 	a virtual environment needs to be created. With the virtual env
 	you can install pylsp via the pip install "python-lsp-server[all]"
-	this install pylsp with all additional lsp functionality including
+	this installs pylsp with all additional lsp functionality including
 	error checking, formatting, style checking etc.
-	Check the readme for all options.
+	Check the pylsp readme for all options.
 Now you need to actually point to where the lsp program was installed
 	this is located in the bin folder of the virtual environment.
+I then launch an instance of pylsp running in tcp connection mode which I
+        found works the best. Default port for pylsp is 2087.
 |#
-;; Now I need to add a hook to start pylsp with tcp on initial major mode start
 (lem-lsp-mode/lsp-mode::define-language-spec
     (py-spec lem-python-mode:python-mode)
   :language-id "python"
   :root-uri-patterns '("pyproject.toml" "setup.py" "__init__.py")
-  :command '("/home/dunderscore/workspaces/git-repos/.venv/bin/pylsp")
+  :command '("/home/dunderscore/workspaces/git-repos/.venv/bin/pylsp" "--tcp")
   :readme-url "https://github.com/python-lsp/python-lsp-server"
   :connection-mode :tcp
   :port 2087)
