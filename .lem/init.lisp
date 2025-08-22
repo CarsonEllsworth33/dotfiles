@@ -163,8 +163,12 @@
   ("Shift-Backspace" 'lem-vi-mode/commands:vi-delete-previous-char)
   ("Shift-Tab" 'dunder-delete-to-beginning-of-line))
 
+(define-command comment-uncomment-then-vi-normal () ()
+  (lem/language-mode::comment-or-uncomment-region)
+  (lem-vi-mode/commands:vi-normal))
+
 (define-keys lem-vi-mode:*visual-keymap*
-  ("C" 'lem/language-mode::comment-or-uncomment-region))
+  ("C" 'comment-uncomment-then-vi-normal))
 
 ;; Quality of life keybindings for vi normal mode
 (define-keys lem-vi-mode:*normal-keymap*
@@ -209,3 +213,21 @@ I then launch an instance of pylsp running in tcp connection mode which I
   :root-uri-patterns '("Cargo.toml")
   :command '("/home/dunderscore/.cargo/bin/rust-analyzer" "--stdio")
   :connection-mode :stdio)
+
+(lem-lsp-mode/lsp-mode::define-language-spec
+    (yaml-spec lem-yaml-mode:yaml-mode)
+  :language-id "yaml"
+  :root-uri-patterns '(".yaml" ".yml" ".yamllint")
+  :command '("yaml-language-server" "--stdio")
+  :connection-mode :stdio)
+
+;; (lem-lsp-mode/lsp-mode::define-language-spec
+;;     (c-spec lem-c-mode:c-mode)
+;;   :language-id "c"
+;;   :root-uri-patterns '("CMakeLists.txt")
+;;   :command '("/usr/bin/ccls")
+;;   :connection-mode :stdio)
+
+;; (defmethod spec-initialization-options ((spec c-spec))
+;;   (lem-lsp-base/type:make-lsp-map "snippetSupport" (cl-json:json-bool :false)))
+
